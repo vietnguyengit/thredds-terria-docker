@@ -1,0 +1,41 @@
+version: "3.3"
+
+services:
+  loadbalancer:
+    image: traefik:latest
+    command:
+#      - "--log.level=DEBUG"
+      - "--api.insecure=false"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "8081:8081"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+  terria:
+    image: terria
+    build:
+      context: ./terria
+    depends_on:
+      - loadbalancer
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.terria.rule=Host(`localhost`) || Host(`ec2-13-238-92-19.ap-southeast-2.compute.amazonaws.com`)"
+      - "traefik.http.services.terria.loadbalancer.server.port=3001"
+      - "traefik.http.routers.terria.entrypoints=web"
+
+  thredds:
+    image: unidata/thredds-docker:latest
+    depends_on:
+      - loadbalancer
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.thredds.rule=Host(`thredds.localhost`) || (Host(`ec2-13-238-92-19.ap-southeast-2.compute.amazonaws.com`) && PathPrefix(`/tds`))"
+      - "traefik.http.services.thredds.loadbalancer.server.port=8080"
+      - "traefik.http.routers.thredds.entrypoints=web"
+    restart: unless-stopped
+    volumes:
+      - ./thredds-docker/files/content:/usr/local/tomcat/content/thredds

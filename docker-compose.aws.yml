@@ -1,0 +1,180 @@
+x-aws-vpc: vpc-0dc3175a3f09d8675
+x-aws-cloudformation:
+  Resources:
+    Cluster:
+      Type: AWS::ECS::Cluster
+      Properties:
+        CapacityProviders:
+          - FARGATE_SPOT
+        DefaultCapacityProviderStrategy:
+          - CapacityProvider: FARGATE_SPOT
+            Weight: 1
+    TerriaService:
+      Properties:
+        NetworkConfiguration:
+          AwsvpcConfiguration:
+            Subnets:
+              - subnet-0bf917514988d7ae0 #public subnet-1
+              - subnet-03b269e726dddc128 #public subnet-2
+    ThreddsService:
+      Properties:
+        NetworkConfiguration:
+          AwsvpcConfiguration:
+            Subnets:
+              - subnet-0bf917514988d7ae0 #public subnet-1
+              - subnet-03b269e726dddc128 #public subnet-2
+
+    ########## LoadBalancer ############
+    LoadBalancer:
+      Properties:
+        LoadBalancerAttributes: []
+        Type: application
+        Subnets:
+          - subnet-0bf917514988d7ae0 #public subnet-1
+          - subnet-03b269e726dddc128 #public subnet-2
+
+    ########## LoadBalancer Listeners ############
+    TerriaTCP3001Listener:
+      Properties:
+        Protocol: HTTP
+
+    TerriaTCP3001TargetGroup:
+      Properties:
+        Protocol: HTTP
+
+    ThreddsTCP8080Listener:
+      Properties:
+        Protocol: HTTP
+
+    ThreddsTCP8080TargetGroup:
+      Properties:
+        Protocol: HTTP
+
+    HTTPlistener:
+      DependsOn:
+        - LoadBalancer
+      Type: AWS::ElasticLoadBalancingV2::Listener
+      Properties:
+        DefaultActions:
+          - Type: redirect
+            RedirectConfig:
+              Protocol: HTTPS
+              Port: '443'
+              Host: '#{host}'
+              Path: /#{path}
+              Query: '#{query}'
+              StatusCode: HTTP_301
+        LoadBalancerArn:
+          Ref: LoadBalancer
+        Port: 80
+        Protocol: HTTP
+
+    HTTPSListener:
+      DependsOn:
+        - TerriaTCP3001TargetGroup
+      Type: AWS::ElasticLoadBalancingV2::Listener
+      Properties:
+        Certificates:
+          - CertificateArn: arn:aws:acm:ap-southeast-2:615645230945:certificate/a5f5d26c-ab3d-4df6-8df0-df59aab9f664
+        DefaultActions:
+          - Type: forward
+            TargetGroupArn:
+              Ref: TerriaTCP3001TargetGroup
+            Order: 1
+        LoadBalancerArn:
+          Ref: LoadBalancer
+        Port: 443
+        Protocol: HTTPS
+
+    ########## Listeners Rules ############
+    ThreddsTCP8080ListenerRule:
+      DependsOn:
+        - ThreddsTCP8080TargetGroup
+        - ThreddsTCP8080Listener
+      Type: AWS::ElasticLoadBalancingV2::ListenerRule
+      Properties:
+        Actions:
+          - Type: forward
+            TargetGroupArn:
+              Ref: ThreddsTCP8080TargetGroup
+        Conditions:
+          - Field: host-header
+            HostHeaderConfig:
+              Values:
+                - thredds.dev.aodn.org.au
+        ListenerArn:
+          Ref: HTTPSListener
+        Priority: 1
+
+    ########## Route53 ############
+    TerriaARecord:
+      Type: AWS::Route53::RecordSet
+      Properties:
+        HostedZoneId: Z3JIUIKOQNPOWH
+        Type: A
+        Name: terria.dev.aodn.org.au
+        AliasTarget:
+          DNSName:
+            Fn::GetAtt:
+              - LoadBalancer
+              - DNSName
+          HostedZoneId:
+            Fn::GetAtt:
+              - LoadBalancer
+              - CanonicalHostedZoneID
+    ThreddsARecord:
+      Type: AWS::Route53::RecordSet
+      Properties:
+        HostedZoneId: Z3JIUIKOQNPOWH
+        Type: A
+        Name: thredds.dev.aodn.org.au
+        AliasTarget:
+          DNSName:
+            Fn::GetAtt:
+              - LoadBalancer
+              - DNSName
+          HostedZoneId:
+            Fn::GetAtt:
+              - LoadBalancer
+              - CanonicalHostedZoneID
+
+services:
+  terria:
+    image: 615645230945.dkr.ecr.ap-southeast-2.amazonaws.com/terria
+    build:
+      context: ./terria
+    deploy:
+      x-aws-autoscaling:
+        min: 1
+        max: 2
+        cpu: 65
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2048M
+    ports:
+      - "3001:3001"
+
+  thredds:
+    image: 615645230945.dkr.ecr.ap-southeast-2.amazonaws.com/thredds5
+    build:
+      context: ./thredds-docker
+    deploy:
+      x-aws-autoscaling:
+        min: 2
+        max: 3
+        cpu: 80
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4096M
+    ports:
+      - "8080:8080"
+
+networks:
+  default:
+    external: true
+    name: sg-05db48a16559cb753
+
+volumes:
+  content:
