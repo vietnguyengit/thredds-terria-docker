@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog xmlns="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0" xmlns:xlink="http://www.w3.org/1999/xlink" name="COVERAGE L4 Datasets in AWS-S3" version="1.2">
+  <service name="obstoreGrid" serviceType="compound" base="">
+    <service name="odap" serviceType="OpenDAP" base="/thredds/dodsC/"/>
+    <service name="wcs" serviceType="WCS" base="/thredds/wcs/"/>
+    <service name="wms" serviceType="WMS" base="/thredds/wms/"/>
+    <service name="ncssGrid" serviceType="NetcdfSubset" base="/thredds/ncss/grid/"/>
+    <service name="cdmremote" serviceType="CdmRemote" base="/thredds/cdmremote/"/>
+    <service name="cdmrFeature" serviceType="CdmrFeature" base="/thredds/cdmrfeature/grid/"/>
+    <service name="iso" serviceType="ISO" base="/thredds/iso/"/>
+    <service name="ncml" serviceType="NCML" base="/thredds/ncml/"/>
+    <service name="uddc" serviceType="UDDC" base="/thredds/uddc/"/>
+  </service>
+  <catalogRef xlink:href="TDS_aws.xml" xlink:title="COVERAGE L4 Satellite Ocean Data (AWS)" name="COVERAGE L4 Satellite Ocean Data (AWS)"/>
+  <catalogRef xlink:href="https://coverage.wekeo.eu/thredds/catalog/TDS_wekeo.xml" xlink:title="COVERAGE L4 Satellite Ocean Data (WEkEO)" name="COVERAGE L4 Satellite Ocean Data (WEkEO)"/>
+</catalog>
