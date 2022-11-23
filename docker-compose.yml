@@ -28,7 +28,9 @@ services:
       - "traefik.http.routers.terria.entrypoints=web"
 
   thredds:
-    image: unidata/thredds-docker:latest
+    image: thredds-docker
+    build:
+      context: ./thredds-docker
     depends_on:
       - loadbalancer
     labels:
@@ -37,5 +39,3 @@ services:
       - "traefik.http.services.thredds.loadbalancer.server.port=8080"
       - "traefik.http.routers.thredds.entrypoints=web"
     restart: unless-stopped
-    volumes:
-      - ./thredds-docker/files/content:/usr/local/tomcat/content/thredds

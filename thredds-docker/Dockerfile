@@ -87,8 +87,9 @@ RUN curl -fSL "${THREDDS_WAR_URL}" -o thredds.war && \
 ###
 
 RUN mkdir -p ${CATALINA_HOME}/content/thredds
-
-COPY files/content ${CATALINA_HOME}/content/thredds
+COPY files/catalog.xml ${CATALINA_HOME}/content/thredds/catalog.xml
+COPY files/TDS_aws.xml ${CATALINA_HOME}/content/thredds/TDS_aws.xml
+COPY files/threddsConfig.xml ${CATALINA_HOME}/content/thredds/threddsConfig.xml
 
 ###
 # Tomcat users

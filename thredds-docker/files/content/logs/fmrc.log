@@ -1,2 +1,0 @@
-[2022-11-23T12:44:53.649+0000] INFO  thredds.featurecollection.cache.GridInventoryCacheChronicle: Creating cache directory at /usr/local/tomcat/content/thredds/cache/collection
-[2022-11-23T12:44:53.649+0000] INFO  thredds.featurecollection.cache.GridInventoryCacheChronicle: Creating new grid inventory cache file at /usr/local/tomcat/content/thredds/cache/collection/GridDatasetInv.dat

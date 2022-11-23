@@ -1,6 +1,0 @@
-[2022-11-23T12:44:53.575+0000] Started a DiskCache2 scour task on /usr/local/tomcat/content/thredds/cache/agg every 1440 minutes for files older than 129600 minutes
-[2022-11-23T12:44:53.576+0000] Started a DiskCache2 scour task on /usr/local/tomcat/content/thredds/cache/aggNew/ every 1440 minutes for files older than 129600 minutes
-[2022-11-23T12:44:53.637+0000] Started a DiskCache2 scour task on /usr/local/tomcat/content/thredds/cache/ncss every 15 minutes for files older than 30 minutes
-[2022-11-23T12:44:54.964+0000] Started a DiskCache2 scour task on /usr/local/tomcat/content/thredds/cache/wcs every 10 minutes for files older than 5 minutes
-[2022-11-23T12:46:16.808+0000] FileCache.shutdown called%n
-[2022-11-23T12:46:16.808+0000] DiskCache2.exit()%n

@@ -13,15 +13,15 @@
 
     <contact>
       <name>Support</name>
-      <organization>My Group</organization>
-      <email>support@my.group</email>
+      <organization>IMOS</organization>
+      <email>info@imos.org.au</email>
       <!--phone></phone-->
     </contact>
     <hostInstitution>
-      <name>My Group</name>
-      <webSite>http://www.my.site/</webSite>
+      <name>IMOS</name>
+      <webSite>https://imos.org.au/</webSite>
       <logoUrl>myGroup.gif</logoUrl>
-      <logoAltText>My Group</logoAltText>
+      <logoAltText>IMOS</logoAltText>
     </hostInstitution>
   </serverInformation>
 
