@@ -31,9 +31,8 @@
               enhance="all">
         <aggregation dimName="time" type="joinExisting">
           <scan location="cdms3:imos-data?IMOS/SRS/SST/ghrsst/L3S-1d/ngt/"
-                dateFormatMark="IMOS/SRS/SST/ghrsst/L3S-1d/ngt/#yyyy"
+                dateFormatMark="IMOS/SRS/SST/ghrsst/L3S-1d/ngt/**\//#yyyyMMdd"
                 suffix=".nc"
-                subdirs="true"
           />
         </aggregation>
       </netcdf>
