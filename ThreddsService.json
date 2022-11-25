@@ -1,0 +1,168 @@
+{
+  "executionRoleArn":"arn:aws:iam::615645230945:role/vhnguyen-thredds5-ThreddsTaskExecutionRole-17XJHQ0QIPLHG",
+  "containerDefinitions":[
+    {
+      "dnsSearchDomains":[
+
+      ],
+      "environmentFiles":[
+
+      ],
+      "logConfiguration":{
+        "logDriver":"awslogs",
+        "secretOptions":[
+
+        ],
+        "options":{
+          "awslogs-group":"/docker-compose/vhnguyen-thredds5",
+          "awslogs-region":"ap-southeast-2",
+          "awslogs-stream-prefix":"vhnguyen-thredds5"
+        }
+      },
+      "entryPoint":[
+
+      ],
+      "portMappings":[
+        {
+          "hostPort":8080,
+          "protocol":"tcp",
+          "containerPort":8080
+        }
+      ],
+      "command":[
+
+      ],
+      "linuxParameters":{
+        "tmpfs":[
+
+        ],
+        "devices":[
+
+        ]
+      },
+      "cpu":0,
+      "environment":[
+
+      ],
+      "ulimits":[
+
+      ],
+      "dnsServers":[
+
+      ],
+      "mountPoints":[
+
+      ],
+      "secrets":[
+
+      ],
+      "dockerSecurityOptions":[
+
+      ],
+      "volumesFrom":[
+
+      ],
+      "image":"615645230945.dkr.ecr.ap-southeast-2.amazonaws.com/thredds5:latest@sha256:bf88a89ddafe28a0e9cf77165f570ad789a80b922e7396b7535ebca786f16594",
+      "dependsOn":[
+        {
+          "containerName":"Thredds_ResolvConf_InitContainer",
+          "condition":"SUCCESS"
+        }
+      ],
+      "essential":true,
+      "links":[
+
+      ],
+      "extraHosts":[
+
+      ],
+      "dockerLabels":{
+
+      },
+      "systemControls":[
+
+      ],
+      "name":"thredds"
+    },
+    {
+      "dnsSearchDomains":[
+
+      ],
+      "environmentFiles":[
+
+      ],
+      "logConfiguration":{
+        "logDriver":"awslogs",
+        "secretOptions":[
+
+        ],
+        "options":{
+          "awslogs-group":"/docker-compose/vhnguyen-thredds5",
+          "awslogs-region":"ap-southeast-2",
+          "awslogs-stream-prefix":"vhnguyen-thredds5"
+        }
+      },
+      "entryPoint":[
+
+      ],
+      "portMappings":[
+
+      ],
+      "command":[
+        "ap-southeast-2.compute.internal",
+        "vhnguyen-thredds5.local"
+      ],
+      "cpu":0,
+      "environment":[
+
+      ],
+      "ulimits":[
+
+      ],
+      "dnsServers":[
+
+      ],
+      "mountPoints":[
+
+      ],
+      "secrets":[
+
+      ],
+      "dockerSecurityOptions":[
+
+      ],
+      "volumesFrom":[
+
+      ],
+      "image":"docker/ecs-searchdomain-sidecar:1.0",
+      "essential":false,
+      "links":[
+
+      ],
+      "extraHosts":[
+
+      ],
+      "dockerLabels":{
+
+      },
+      "systemControls":[
+
+      ],
+      "name":"Thredds_ResolvConf_InitContainer"
+    }
+  ],
+  "placementConstraints":[
+
+  ],
+  "memory":"32768",
+  "family":"vhnguyen-thredds5-thredds",
+  "requiresCompatibilities":[
+    "FARGATE"
+  ],
+  "networkMode":"awsvpc",
+  "cpu":"16384",
+  "ephemeralStorage":{
+    "sizeInGiB":200
+  },
+  "volumes":[]
+}

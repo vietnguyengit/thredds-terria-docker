@@ -9,9 +9,9 @@
   <role rolename="tdsTrigger" description="can trigger feature collections, eg from tdm"/>
 
   <user username="tdm"
-        password="1a8755ca18bea68fa43e2fa2d5d89fde446d3151"
+        password="cbfdac6008f9cab4083784cbd1874f76618d2a97"
         roles="tdsTrigger"/>
   <user username="admin"
-        password="d033e22ae348aeb5660fc2140aec35850c4da997"
+        password="cbfdac6008f9cab4083784cbd1874f76618d2a97"
         roles="tdsConfig,tdsMonitor"/>
 </tomcat-users>

@@ -94,6 +94,7 @@ COPY files/threddsConfig.xml ${CATALINA_HOME}/content/thredds/threddsConfig.xml
 # Tomcat users
 ###
 
+COPY files/server.xml ${CATALINA_HOME}/conf/server.xml
 COPY files/tomcat-users.xml ${CATALINA_HOME}/conf/tomcat-users.xml
 
 ###
