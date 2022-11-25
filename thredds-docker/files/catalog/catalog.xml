@@ -11,6 +11,5 @@
     <service name="ncml" serviceType="NCML" base="/thredds/ncml/"/>
     <service name="uddc" serviceType="UDDC" base="/thredds/uddc/"/>
   </service>
-  <catalogRef xlink:href="TDS_aws.xml" xlink:title="COVERAGE L4 Satellite Ocean Data (AWS)" name="COVERAGE L4 Satellite Ocean Data (AWS)"/>
-  <catalogRef xlink:href="https://coverage.wekeo.eu/thredds/catalog/TDS_wekeo.xml" xlink:title="COVERAGE L4 Satellite Ocean Data (WEkEO)" name="COVERAGE L4 Satellite Ocean Data (WEkEO)"/>
+  <catalogRef xlink:href="IMOS_sst.xml" xlink:title="IMOS SRS L3S NGT" name="SRS L3S NGT"/>
 </catalog>

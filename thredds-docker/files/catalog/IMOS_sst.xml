@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog xmlns="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0" xmlns:xlink="http://www.w3.org/1999/xlink" name="IMOS SRS L3S NGT" version="1.2">
+  <service name="obstoreGrid" serviceType="compound" base="">
+    <service name="odap" serviceType="OpenDAP" base="/thredds/dodsC/"/>
+    <service name="wcs" serviceType="WCS" base="/thredds/wcs/"/>
+    <service name="wms" serviceType="WMS" base="/thredds/wms/"/>
+    <service name="ncssGrid" serviceType="NetcdfSubset" base="/thredds/ncss/grid/"/>
+    <service name="cdmremote" serviceType="CdmRemote" base="/thredds/cdmremote/"/>
+    <service name="cdmrFeature" serviceType="CdmrFeature" base="/thredds/cdmrfeature/grid/"/>
+    <service name="iso" serviceType="ISO" base="/thredds/iso/"/>
+    <service name="ncml" serviceType="NCML" base="/thredds/ncml/"/>
+    <service name="uddc" serviceType="UDDC" base="/thredds/uddc/"/>
+  </service>
+  <dataset name="IMOS SRS L3S NGT">
+    <metadata inherited="true">
+      <serviceName>obstoreGrid</serviceName>
+      <dataType>Grid</dataType>
+      <dataFormat>NetCDF-4</dataFormat>
+      <keyword>sea surface temperature</keyword>
+      <keyword>sst</keyword>
+      <keyword>surface temperature</keyword>
+    </metadata>
+    <!--
+    Full aggregation, scan based, defined in catalog
+    -->
+    <dataset name="Complete Time Series Scan Aggregation"
+             ID="IMOS-SRS-L3S-NGT"
+             urlPath="scan-aggregation/IMOS-SRS-L3S-NGT.nc">
+      <netcdf xmlns="http://www.unidata.ucar.edu/namespaces/netcdf/ncml-2.2"
+              id="IMOS-SRS-L3S-NGT"
+              enhance="all">
+        <aggregation dimName="time" type="joinExisting">
+          <scan location="cdms3:imos-data?IMOS/SRS/SST/ghrsst/L3S-1d/ngt/"
+                dateFormatMark="IMOS/SRS/SST/ghrsst/L3S-1d/ngt/#yyyy"
+                suffix=".nc"
+                subdirs="true"
+          />
+        </aggregation>
+      </netcdf>
+    </dataset>
+  </dataset>
+</catalog>

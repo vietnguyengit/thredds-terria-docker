@@ -161,9 +161,9 @@ services:
       context: ./thredds-docker
     deploy:
       x-aws-autoscaling:
-        min: 2
-        max: 3
-        cpu: 80
+        min: 1
+        max: 2
+        cpu: 90
       resources:
         limits:
           cpus: '2'
